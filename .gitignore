@@ -3,3 +3,9 @@ application/target/*
 application/.classpath
 application/.project
 application/bin/*
+application/.setting
+application-it/target/*
+application-it/.classpath
+application-it/.project
+application-it/bin/*
+application-it/.setting
