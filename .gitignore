@@ -1,0 +1,5 @@
+application/.apt_generated
+application/target/*
+application/.classpath
+application/.project
+application/bin/*
