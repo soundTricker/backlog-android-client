@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	android:theme="@style/Theme.ListView">
+	<EditTextPreference android:summary="@string/spaceId_summary"
+		android:key="spaceId" android:title="@string/spaceId_title"
+		android:dialogMessage="@string/spaceId_summary"
+		android:dialogTitle="@string/spaceId_title" />
+	<EditTextPreference android:summary="@string/username_summary"
+		android:key="username" android:title="@string/username_title"
+		android:dialogMessage="@string/username_summary" android:dialogTitle="@string/username_title"/>
+	<EditTextPreference android:summary="@string/password_summary"
+		android:key="password" android:password="true" android:title="@string/password_title"
+		android:dialogMessage="@string/password_summary" android:dialogTitle="@string/password_title"/>
+</PreferenceScreen>

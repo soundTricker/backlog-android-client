@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme">
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:textColorPrimary">#999999</item>
+        <item name="android:textColorSecondary">#CCCCCC</item>
+    </style>
+    <style name="Theme.ListView">
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:textColorPrimary">#999999</item>
+        <item name="android:textColorSecondary">#CCCCCC</item>
+        <item name="android:cacheColorHint">@android:color/white</item>
+    </style>
+</resources>

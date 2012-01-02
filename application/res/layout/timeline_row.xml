@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:paddingLeft="2px" android:paddingRight="2px"
+	android:paddingBottom="1px" android:paddingTop="1px"
+	android:layout_height="wrap_content" android:layout_width="fill_parent"
+	android:baselineAligned="true" android:orientation="vertical">
+	<LinearLayout android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:id="@+id/timeline_label">
+		<TextView android:textColor="@android:color/white"
+			android:id="@+id/type" android:text="type" android:layout_height="wrap_content"
+			android:layout_width="wrap_content" android:layout_marginRight="3dip"></TextView>
+		<TextView android:textColor="@android:color/white"
+			android:id="@+id/updatedOn" android:layout_height="wrap_content"
+			android:text="updatedOn" android:layout_gravity="right"
+			android:layout_width="match_parent" android:gravity="right"></TextView>
+	</LinearLayout>
+	<LinearLayout android:id="@+id/linearLayout4"
+		android:layout_height="match_parent" android:layout_width="match_parent">
+		<TextView android:text="issueKey" android:layout_width="wrap_content"
+			android:id="@+id/issueKey" android:layout_height="wrap_content"></TextView>
+	</LinearLayout>
+	<LinearLayout android:id="@+id/linearLayout1"
+		android:layout_width="fill_parent" android:layout_height="wrap_content">
+		<TextView android:text="TextView" android:layout_width="wrap_content"
+			android:id="@+id/summary" android:layout_height="wrap_content"></TextView>
+	</LinearLayout>
+	<LinearLayout android:id="@+id/linearLayout5"
+		android:layout_width="match_parent" android:layout_height="wrap_content">
+		<ImageView android:layout_width="wrap_content" android:src="@drawable/icon"
+			android:layout_height="wrap_content" android:id="@+id/userIcon"></ImageView>
+		<TextView android:text="TextView" android:layout_width="match_parent"
+			android:id="@+id/user" android:layout_height="wrap_content"
+			android:layout_weight="1" android:gravity="left"
+			android:layout_gravity="top|right"></TextView>
+	</LinearLayout>
+	<LinearLayout android:id="@+id/linearLayout3"
+		android:layout_width="fill_parent" android:layout_height="wrap_content">
+		<TextView android:id="@+id/content" android:layout_height="wrap_content"
+			android:layout_width="wrap_content"></TextView>
+	</LinearLayout>
+
+</LinearLayout>
