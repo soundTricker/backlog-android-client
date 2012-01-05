@@ -13,4 +13,6 @@
     <string name="password_summary">パスワードを入力してください</string>
     <string name="nodata">Projectが存在しません。</string>
     <string name="timeline">タイムライン</string>
+    <string name="assigned">assigned</string>
+    <string name="created_user">created by</string>
 </resources>

@@ -6,8 +6,12 @@ import org.xmlrpc.android.XMLRPCException;
 
 import com.google.inject.ImplementedBy;
 import com.googlecode.stk.android.backlog.db.entity.Component;
+import com.googlecode.stk.android.backlog.db.entity.Issue;
 import com.googlecode.stk.android.backlog.db.entity.IssueType;
+import com.googlecode.stk.android.backlog.db.entity.Priority;
 import com.googlecode.stk.android.backlog.db.entity.Project;
+import com.googlecode.stk.android.backlog.db.entity.Resolution;
+import com.googlecode.stk.android.backlog.db.entity.Status;
 import com.googlecode.stk.android.backlog.db.entity.Timeline;
 import com.googlecode.stk.android.backlog.db.entity.User;
 import com.googlecode.stk.android.backlog.db.entity.UserIcon;
@@ -38,4 +42,12 @@ public interface BacklogService {
 	List<Timeline> getTimeline() throws XMLRPCException;
 
 	UserIcon getUserIcon(Integer id) throws XMLRPCException;
+
+	Issue getIssue(int issueId) throws XMLRPCException;
+
+	List<Status> getStatuses() throws XMLRPCException;
+
+	List<Priority> getPriorities() throws XMLRPCException;
+
+	List<Resolution> getResolutions() throws XMLRPCException;
 }

@@ -1,5 +1,7 @@
 package com.googlecode.stk.android.backlog.db.entity;
 
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -15,6 +17,9 @@ public class Version extends BaseEntity implements Convertable{
 	@DatabaseField
 	public Date date;
 
+	@DatabaseField
+	public Integer projectId;
+
 	public static Version create(Map<String, Object> map) {
 
 		Version bean = new Version();
@@ -28,7 +33,10 @@ public class Version extends BaseEntity implements Convertable{
 	public void set(Map<String, Object> map) {
 		this.id = (Integer)map.get("id");
 		this.name = (String)map.get("name");
-		this.date = (Date)map.get("date");
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+		
+		this.date = dateFormat.parse((String)map.get("date") , new ParsePosition(0));
 		
 	}
 

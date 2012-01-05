@@ -7,25 +7,26 @@ import org.xmlrpc.android.XMLRPCClient;
 import org.xmlrpc.android.XMLRPCException;
 
 import roboguice.util.Ln;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.googlecode.stk.android.backlog.Const;
 import com.googlecode.stk.android.backlog.db.entity.Component;
+import com.googlecode.stk.android.backlog.db.entity.Issue;
 import com.googlecode.stk.android.backlog.db.entity.IssueType;
+import com.googlecode.stk.android.backlog.db.entity.Priority;
 import com.googlecode.stk.android.backlog.db.entity.Project;
+import com.googlecode.stk.android.backlog.db.entity.Resolution;
+import com.googlecode.stk.android.backlog.db.entity.Status;
 import com.googlecode.stk.android.backlog.db.entity.Timeline;
 import com.googlecode.stk.android.backlog.db.entity.User;
 import com.googlecode.stk.android.backlog.db.entity.UserIcon;
 import com.googlecode.stk.android.backlog.db.entity.Version;
 import com.googlecode.stk.android.backlog.service.BacklogService;
 import com.googlecode.stk.android.backlog.util.Util;
-
 public class BacklogServiceImpl implements BacklogService {
 
 	private static String TAG = "backlog-android-client";
@@ -71,13 +72,15 @@ public class BacklogServiceImpl implements BacklogService {
 	@Override
 	public List<Component> getComponents(Integer projectId) throws XMLRPCException {
 
-		Map<String, Object> params = Maps.newHashMap();
+		Object[] components = call("backlog.getComponents", projectId);
+		
+		List<Component> list = Util.convertList(components, Component.class);
+		
+		for (Component component : list) {
+			component.projectId = projectId;
+		}
 
-		params.put("projectId", projectId);
-
-		Object[] components = call("backlog.getComponents", params);
-
-		return Util.convertList(components, Component.class);
+		return list;
 	}
 
 	@Override
@@ -90,7 +93,13 @@ public class BacklogServiceImpl implements BacklogService {
 	@Override
 	public List<IssueType> getIssueTypes(Integer id) throws XMLRPCException {
 		Object[] issueTypes = call("backlog.getIssueTypes", id);
-		return Util.convertList(issueTypes, IssueType.class);
+		List<IssueType> list = Util.convertList(issueTypes, IssueType.class);
+		
+		for (IssueType issueType : list) {
+			issueType.projectId = id;
+		}
+		
+		return list;
 	}
 
 	@Override
@@ -107,15 +116,27 @@ public class BacklogServiceImpl implements BacklogService {
 	}
 
 	@Override
-	public List<Version> getVersions(Integer projectId) {
+	public List<Version> getVersions(Integer projectId) throws XMLRPCException {
 		
-		return null;
+		Object[] versions = call("backlog.getVersions" , projectId);
+		
+		List<Version> list = Util.convertList(versions, Version.class);
+		
+		for (Version version : list) {
+			version.projectId = projectId;
+		}
+		
+		return list;
 	}
 
 	@Override
 	public List<User> getUsers(Integer projectId) throws XMLRPCException {
-
-		return null;
+		
+		Object[] versions = call("backlog.getUsers" , projectId);
+		
+		List<User> list = Util.convertList(versions, User.class);
+		
+		return list;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -141,6 +162,61 @@ public class BacklogServiceImpl implements BacklogService {
 		}
 
 		return (T) object;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public Issue getIssue(int issueId) throws XMLRPCException {
+
+		Object object = call("backlog.getIssue", issueId);
+		
+		if(object == null) {
+			return null;
+		}
+		
+		return Issue.create((Map<String,Object>) object);
+	}
+
+	@Override
+	public List<Status> getStatuses() throws XMLRPCException {
+		
+		Object[] statuses = call("backlog.getStatuses");
+		
+		if(statuses == null) {
+			return null;
+		}
+		
+		List<Status> list = Util.convertList(statuses, Status.class);
+		
+		return list;
+	}
+
+	@Override
+	public List<Priority> getPriorities() throws XMLRPCException {
+		
+		Object[] priorites = call("backlog.getPriorities");
+		
+		if(priorites == null) {
+			return null;
+		}
+		
+		List<Priority> list = Util.convertList(priorites, Priority.class);
+		
+		return list;
+	}
+
+	@Override
+	public List<Resolution> getResolutions() throws XMLRPCException {
+		
+		Object[] resolutions = call("backlog.getResolutions");
+		
+		if(resolutions == null) {
+			return null;
+		}
+		
+		List<Resolution> list = Util.convertList(resolutions, Resolution.class);
+		
+		return list;
 	}
 
 //	public static class XmlRpcAsyncTask<T, M> extends RoboAsyncTask<T> {

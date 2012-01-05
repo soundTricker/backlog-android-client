@@ -10,6 +10,9 @@ public class Component extends BaseEntity implements Convertable {
 
 	@DatabaseField
 	public String name;
+	
+	@DatabaseField
+	public Integer projectId;
 
 	public void set(Map<String, Object> map) {
 

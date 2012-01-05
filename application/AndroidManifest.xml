@@ -17,7 +17,9 @@
 			android:theme="@android:style/Theme.Light" />
 		<activity android:name=".activity.TimelineActivity_"
 			android:theme="@android:style/Theme.Light" />
-
+		<activity android:name=".activity.IssueDetailActivity_"
+			android:theme="@android:style/Theme.Light" />
+		
 	</application>
 	<uses-sdk android:minSdkVersion="8"></uses-sdk>
 

@@ -5,7 +5,7 @@ import com.j256.ormlite.field.DatabaseField;
 
 public abstract class BaseEntity {
 
-	@DatabaseField(generatedId=true)
+	@DatabaseField(id=true , columnName="_ID")
 	public Integer id;
 	
 }

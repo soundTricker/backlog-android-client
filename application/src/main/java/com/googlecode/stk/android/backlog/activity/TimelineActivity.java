@@ -164,21 +164,28 @@ public class TimelineActivity extends ListActivity {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 
-//		Intent intent = new Intent(this, null); //TODO IssueView
-//
-//		Timeline item = getAdapter().getItem(position);
-//
-//		intent.putExtra("issueId", item.issue.id);
-//
-//		startActivity(intent);
-//
-//		finish();
+		Intent intent = new Intent(this, IssueDetailActivity_.class); //TODO IssueView
+
+		Timeline item = timelineAdapter.getItem(position);
+
+		intent.putExtra("issueId", item.issue.id);
+
+		startActivity(intent);
 	}
 
 	private void gotoSetting() {
 		Intent intent = new Intent(this , SettingActivity_.class);
 
 		startActivityForResult(intent , 0);
+	}
+	
+	private void back() {
+		finish();
+	}
+	
+	@Click(R.id.backHomeImage)
+	public void onBackHomeIconClick(View icon){
+		back();
 	}
 	
 	@Click(R.id.settingImage)

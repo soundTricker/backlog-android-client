@@ -6,31 +6,23 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable
-public class IssueType extends BaseEntity implements Convertable {
-
+public class Status extends BaseEntity implements Convertable{
+	
 	@DatabaseField
 	public String name;
-
-	@DatabaseField
-	public String color;
-
-	@DatabaseField
-	public Integer projectId;
-
-	public static IssueType create(Map<String, Object> map) {
-
-		IssueType issueType = new IssueType();
-
-		issueType.set(map);
-
-		return issueType;
+	
+	public static Status create(Map<String, Object> map) {
+		Status status = new Status();
+		
+		status.set(map);
+		
+		return status;
 	}
-
+	
 	@Override
 	public void set(Map<String, Object> map) {
 		this.id = (Integer)map.get("id");
 		this.name = (String)map.get("name");
-		this.color = (String)map.get("color");
 	}
 
 }

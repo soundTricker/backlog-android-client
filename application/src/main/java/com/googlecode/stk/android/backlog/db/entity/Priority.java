@@ -10,7 +10,7 @@ public class Priority extends BaseEntity implements Convertable{
 
 	@DatabaseField
 	public String name;
-
+	
 	public static Priority create(Map<String, Object> map) {
 
 		Priority priority = new Priority();
