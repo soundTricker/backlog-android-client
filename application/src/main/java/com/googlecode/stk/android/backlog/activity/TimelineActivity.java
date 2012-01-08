@@ -100,7 +100,7 @@ public class TimelineActivity extends ListActivity {
 				Ln.e(e , "can't get UserIcon id:%d" , timeline.user.id);
 			}
 			
-			if(userIcon == null || userIcon.data == null || userIcon.data.length > 0) {
+			if(userIcon == null || userIcon.data == null || userIcon.data.length <= 0) {
 				userIconQueue.put(timeline.user.id, timeline);
 			} else {
 				timeline.icon = BitmapFactory.decodeByteArray(userIcon.data , 0 ,userIcon.data.length);
@@ -164,7 +164,7 @@ public class TimelineActivity extends ListActivity {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 
-		Intent intent = new Intent(this, IssueDetailActivity_.class); //TODO IssueView
+		Intent intent = new Intent(this, IssueDetailActivity_.class);
 
 		Timeline item = timelineAdapter.getItem(position);
 

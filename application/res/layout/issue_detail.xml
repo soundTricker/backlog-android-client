@@ -43,92 +43,154 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="match_parent"
+        android:background="@drawable/white_gradation"
+        android:orientation="vertical" >
 
         <LinearLayout
-            android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
-            android:layout_weight="1" >
+            android:layout_margin="4dp"
+            android:background="@drawable/radius_white"
+            android:orientation="vertical"
+            android:padding="2dp" >
 
-            <TextView
-                android:id="@+id/type"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:text="type" />
+                android:layout_weight="1" >
 
-            <TextView
-                android:id="@+id/status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:text="status" />
+                <TextView
+                    android:id="@+id/type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:text="type" />
 
-            <TextView
-                android:id="@+id/issueKey"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:text="issueKey" />
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:text="status" />
 
-            <TextView
-                android:id="@+id/priority"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
+                <TextView
+                    android:id="@+id/issueKey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:text="issueKey" />
+
+                <TextView
+                    android:id="@+id/priority"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="1"
+                    android:text="priority" />
+
+                <TextView
+                    android:id="@+id/createdAt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:text="createdAt" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginTop="1dp"
                 android:layout_weight="1"
-                android:text="priority" />
+                android:background="@drawable/white_gradation" >
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/createdAt"
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:text="createdAt" />
+                android:layout_weight="1"
+                android:text="Title"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/white_gradation" >
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/created_user" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar1"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp" />
+
+                <ImageView
+                    android:id="@+id/userIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="userName" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Title"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/created_user" />
+            android:layout_margin="4dp"
+            android:background="@drawable/radius_white"
+            android:padding="2dp" >
 
-        <ProgressBar
-            android:id="@+id/progressBar1"
-            style="?android:attr/progressBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_marginLeft="2dp" android:layout_marginRight="2dp"/>
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="description" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/user_name"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="userName" />
-    </LinearLayout>
+            android:layout_gravity="center" >
 
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="description" />
+            <Button
+                android:id="@+id/showComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/showComment" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/android:list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible">
+        </ListView>
+
+    </LinearLayout>
 
 </LinearLayout>

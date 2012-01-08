@@ -443,7 +443,7 @@ public class XMLRPCClient extends XMLRPCCommon {
 			// execute HTTP POST request
 			HttpResponse response = client.execute(postMethod);
 			// Log.d(Tag.LOG, "ros HTTP POSTed");
-
+			
 			// check status code
 			int statusCode = response.getStatusLine().getStatusCode();
 			// Log.d(Tag.LOG, "ros status code:" + statusCode);

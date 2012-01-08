@@ -12,6 +12,7 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Named;
+import com.googlecode.stk.android.backlog.adapter.CommentAdapter;
 import com.googlecode.stk.android.backlog.adapter.TimelineAdapter;
 import com.googlecode.stk.android.backlog.db.DaoProvider;
 import com.googlecode.stk.android.backlog.db.entity.Component;
@@ -84,6 +85,15 @@ public class BacklogModule extends AbstractAndroidModule {
 		((InjectorProvider) context).getInjector().injectMembers(timelineAdapter);
 
 		return timelineAdapter;
+	}
+	
+	@Provides
+	public CommentAdapter commentAdapter(Context context, LayoutInflater mInflater) {
+		CommentAdapter commentAdapter = new CommentAdapter(context, 0);
+		
+		((InjectorProvider) context).getInjector().injectMembers(commentAdapter);
 
+		return commentAdapter;
+		
 	}
 }

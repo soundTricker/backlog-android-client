@@ -14,6 +14,7 @@ import android.util.Log;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.googlecode.stk.android.backlog.Const;
+import com.googlecode.stk.android.backlog.db.entity.Comment;
 import com.googlecode.stk.android.backlog.db.entity.Component;
 import com.googlecode.stk.android.backlog.db.entity.Issue;
 import com.googlecode.stk.android.backlog.db.entity.IssueType;
@@ -215,6 +216,20 @@ public class BacklogServiceImpl implements BacklogService {
 		}
 		
 		List<Resolution> list = Util.convertList(resolutions, Resolution.class);
+		
+		return list;
+	}
+	
+	@Override
+	public List<Comment> getComments(Integer issueId) throws XMLRPCException {
+		
+		Object[] comments = call("backlog.getComments", issueId);
+		
+		if(comments == null) {
+			return null;
+		}
+		
+		List<Comment> list = Util.convertList(comments, Comment.class);
 		
 		return list;
 	}

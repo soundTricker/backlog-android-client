@@ -15,4 +15,5 @@
     <string name="timeline">タイムライン</string>
     <string name="assigned">assigned</string>
     <string name="created_user">created by</string>
+    <string name="showComment">コメントを表示</string>
 </resources>

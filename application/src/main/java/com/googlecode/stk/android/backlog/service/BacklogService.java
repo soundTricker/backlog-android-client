@@ -5,6 +5,7 @@ import java.util.List;
 import org.xmlrpc.android.XMLRPCException;
 
 import com.google.inject.ImplementedBy;
+import com.googlecode.stk.android.backlog.db.entity.Comment;
 import com.googlecode.stk.android.backlog.db.entity.Component;
 import com.googlecode.stk.android.backlog.db.entity.Issue;
 import com.googlecode.stk.android.backlog.db.entity.IssueType;
@@ -50,4 +51,6 @@ public interface BacklogService {
 	List<Priority> getPriorities() throws XMLRPCException;
 
 	List<Resolution> getResolutions() throws XMLRPCException;
+
+	List<Comment> getComments(Integer issueId) throws XMLRPCException;
 }
