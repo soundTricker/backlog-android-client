@@ -11,7 +11,6 @@ import roboguice.util.Ln;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.View;
@@ -21,7 +20,6 @@ import android.widget.Toast;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Click;
@@ -38,10 +36,6 @@ import com.j256.ormlite.dao.Dao;
 @EActivity(R.layout.timeline_list)
 @RoboGuice
 public class TimelineActivity extends ListActivity {
-
-	@Inject
-	@Named("default")
-	public SharedPreferences sp;
 
 	@Inject
 	public BacklogService backlogService;

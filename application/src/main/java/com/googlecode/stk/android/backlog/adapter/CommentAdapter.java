@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -62,7 +63,7 @@ public class CommentAdapter extends IterableAdapter<Comment> {
 		if(item.icon != null) {
 			userIcon.setImageBitmap(item.icon);
 			((ProgressBar)convertView.findViewById(R.id.progressBar1)).setVisibility(View.INVISIBLE);
-//			((ProgressBar)convertView.findViewById(R.id.progressBar1)).setLayoutParams(new LayoutParams(0,0));
+			((ProgressBar)convertView.findViewById(R.id.progressBar1)).setLayoutParams(new LinearLayout.LayoutParams(0,0));
 			userIcon.setVisibility(View.VISIBLE);
 		}
 		setText(convertView, R.id.updatedOn, new SimpleDateFormat("yyyy/MM/dd HH:mm").format(item.getUpdatedOnAsDate()));
