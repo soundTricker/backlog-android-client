@@ -38,7 +38,7 @@ import com.j256.ormlite.dao.Dao;
 public class TimelineActivity extends ListActivity {
 
 	@Inject
-	public BacklogService backlogService;
+	BacklogService backlogService;
 
 	@Inject
 	TimelineAdapter timelineAdapter;
@@ -54,13 +54,14 @@ public class TimelineActivity extends ListActivity {
 	public void initViews() {
 		if(!backlogService.isSetuped()) {
 			gotoSetting();
-			finish();
 			return;
 		}
 
 		setListAdapter(timelineAdapter);
 		reloadTimeline();
 	}
+	
+	
 
 	protected void reloadTimeline(){
 		Log.i(TAG, "load timeline");
@@ -182,8 +183,4 @@ public class TimelineActivity extends ListActivity {
 		back();
 	}
 	
-	@Click(R.id.settingImage)
-	public void onSettingIconClick(View icon) {
-		gotoSetting();
-	}
 }

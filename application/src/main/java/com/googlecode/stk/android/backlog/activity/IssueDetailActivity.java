@@ -211,12 +211,6 @@ public class IssueDetailActivity extends Activity {
 		startActivity(intent);
 	}
 	
-	private void gotoSetting() {
-		Intent intent = new Intent(this , SettingActivity_.class);
-
-		startActivityForResult(intent , 0);
-	}
-	
 	private void back() {
 		finish();
 	}
@@ -226,8 +220,4 @@ public class IssueDetailActivity extends Activity {
 		back();
 	}
 	
-	@Click(R.id.settingImage)
-	public void onSettingIconClick(View icon) {
-		gotoSetting();
-	}
 }

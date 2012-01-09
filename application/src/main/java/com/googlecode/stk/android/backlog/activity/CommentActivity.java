@@ -18,6 +18,7 @@ import com.google.common.collect.ListMultimap;
 import com.google.inject.Inject;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
+import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.Extra;
 import com.googlecode.androidannotations.annotations.RoboGuice;
@@ -174,6 +175,13 @@ public class CommentActivity extends ListActivity {
 
 		finish();
 	}
-
+	private void back() {
+		finish();
+	}
+	
+	@Click(R.id.backHomeImage)
+	public void onBackHomeIconClick(View icon){
+		back();
+	}
 
 }
