@@ -28,6 +28,9 @@ public class Comment extends BaseEntity implements Convertable {
 	@DatabaseField(persisted=false)
 	public Bitmap icon;
 	
+	@DatabaseField
+	public String issueKey;
+	
 	public static Comment create(Map<String, Object> map) {
 		Comment comment = new Comment();
 		

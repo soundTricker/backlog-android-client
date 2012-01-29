@@ -24,6 +24,7 @@ import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.Extra;
+import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.RoboGuice;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.UiThreadDelayed;
@@ -35,6 +36,7 @@ import com.googlecode.stk.android.backlog.service.BacklogService;
 import com.j256.ormlite.dao.Dao;
 
 @EActivity(R.layout.issue_detail)
+@OptionsMenu(R.menu.issue_detail)
 @RoboGuice
 public class IssueDetailActivity extends Activity {
 
@@ -207,6 +209,7 @@ public class IssueDetailActivity extends Activity {
 		Intent intent = new Intent(this , CommentActivity_.class);
 		
 		intent.putExtra("issueId", issueId);
+		intent.putExtra("issueKey", issue.key);
 		
 		startActivity(intent);
 	}

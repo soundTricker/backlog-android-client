@@ -26,8 +26,13 @@
 	</LinearLayout>
 	<LinearLayout android:id="@+id/linearLayout5"
 		android:layout_width="match_parent" android:layout_height="wrap_content">
+		<ProgressBar
+		    android:id="@+id/progressBar1"
+		    style="?android:attr/progressBarStyleSmall"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" />
 		<ImageView android:layout_width="wrap_content" android:src="@drawable/icon"
-			android:layout_height="wrap_content" android:id="@+id/userIcon"></ImageView>
+			android:layout_height="wrap_content" android:id="@+id/userIcon" android:visibility="invisible"></ImageView>
 		<TextView android:text="TextView" android:layout_width="match_parent"
 			android:id="@+id/user" android:layout_height="wrap_content"
 			android:layout_weight="1" android:gravity="left"

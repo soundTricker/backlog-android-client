@@ -91,15 +91,13 @@ public class TimelineActivity extends ListActivity {
 			UserIcon userIcon = null;
 			try {
 				userIcon = userIconDao.queryForId(timeline.user.id);
+				if(userIcon != null && userIcon.data != null && userIcon.data.length > 0) {
+					timeline.icon = BitmapFactory.decodeByteArray(userIcon.data , 0 ,userIcon.data.length);
+				}
 			} catch (SQLException e) {
 				Ln.e(e , "can't get UserIcon id:%d" , timeline.user.id);
 			}
-			
-			if(userIcon == null || userIcon.data == null || userIcon.data.length <= 0) {
-				userIconQueue.put(timeline.user.id, timeline);
-			} else {
-				timeline.icon = BitmapFactory.decodeByteArray(userIcon.data , 0 ,userIcon.data.length);
-			}
+			userIconQueue.put(timeline.user.id, timeline);
 		}
 		
 		set2Adapter(timelineList);

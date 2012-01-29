@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import com.googlecode.stk.android.backlog.db.entity.Comment;
 import com.googlecode.stk.android.backlog.db.entity.Component;
 import com.googlecode.stk.android.backlog.db.entity.Issue;
 import com.googlecode.stk.android.backlog.db.entity.IssueType;
@@ -26,7 +27,7 @@ public class DBConnection extends OrmLiteSqliteOpenHelper {
 
 	@Inject
 	public DBConnection(Context context) {
-		super(context, "backlog2.sqlite", null, 6);
+		super(context, "backlog2.sqlite", null, 7);
 	}
 	
 	protected List<Class<?>> getDatabaseTableList() {
@@ -41,7 +42,8 @@ public class DBConnection extends OrmLiteSqliteOpenHelper {
 											UserIcon.class,
 											Version.class,
 											Resolution.class,
-											Status.class
+											Status.class,
+											Comment.class
 											);
 		return databaseTableList;
 	}

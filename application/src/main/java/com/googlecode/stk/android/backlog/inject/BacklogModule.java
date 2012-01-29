@@ -15,6 +15,7 @@ import com.google.inject.name.Named;
 import com.googlecode.stk.android.backlog.adapter.CommentAdapter;
 import com.googlecode.stk.android.backlog.adapter.TimelineAdapter;
 import com.googlecode.stk.android.backlog.db.DaoProvider;
+import com.googlecode.stk.android.backlog.db.entity.Comment;
 import com.googlecode.stk.android.backlog.db.entity.Component;
 import com.googlecode.stk.android.backlog.db.entity.Issue;
 import com.googlecode.stk.android.backlog.db.entity.IssueType;
@@ -67,6 +68,9 @@ public class BacklogModule extends AbstractAndroidModule {
 		.in(Singleton.class);
 		bind(new TypeLiteral<Dao<Resolution, Integer>>() {})
 		.toProvider(new DaoProvider<Resolution>(helper.getConnectionSource(), Resolution.class))
+		.in(Singleton.class);
+		bind(new TypeLiteral<Dao<Comment, Integer>>() {})
+		.toProvider(new DaoProvider<Comment>(helper.getConnectionSource(), Comment.class))
 		.in(Singleton.class);
 		
 		bindConstant().annotatedWith(SharedPreferencesName.class).to("default");

@@ -53,4 +53,6 @@ public interface BacklogService {
 	List<Resolution> getResolutions() throws XMLRPCException;
 
 	List<Comment> getComments(Integer issueId) throws XMLRPCException;
+	
+	Comment addComment(String issueKey, String comment) throws XMLRPCException;
 }

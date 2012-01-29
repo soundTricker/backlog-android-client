@@ -16,4 +16,6 @@
     <string name="assigned">assigned</string>
     <string name="created_user">created by</string>
     <string name="showComment">コメントを表示</string>
+    <string name="search">検索</string>
+    <string name="add_comment">コメントを追加する</string>
 </resources>

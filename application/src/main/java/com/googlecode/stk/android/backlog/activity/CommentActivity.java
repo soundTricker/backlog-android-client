@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.xmlrpc.android.XMLRPCException;
 
+import roboguice.event.Observes;
 import roboguice.util.Ln;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -21,6 +22,8 @@ import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.Extra;
+import com.googlecode.androidannotations.annotations.OptionsItem;
+import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.RoboGuice;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.UiThreadDelayed;
@@ -29,10 +32,13 @@ import com.googlecode.stk.android.backlog.R;
 import com.googlecode.stk.android.backlog.adapter.CommentAdapter;
 import com.googlecode.stk.android.backlog.db.entity.Comment;
 import com.googlecode.stk.android.backlog.db.entity.UserIcon;
+import com.googlecode.stk.android.backlog.dialog.CommentDialog;
+import com.googlecode.stk.android.backlog.dialog.CommentDialog.OnAddCommentSuccessEvent;
 import com.googlecode.stk.android.backlog.service.BacklogService;
 import com.j256.ormlite.dao.Dao;
 
 @EActivity(R.layout.comment_list)
+@OptionsMenu(R.menu.comment_menu)
 @RoboGuice
 public class CommentActivity extends ListActivity {
 
@@ -42,8 +48,14 @@ public class CommentActivity extends ListActivity {
 	@Extra("issueId")
 	Integer issueId;
 
+	@Extra("issueKey")
+	String issueKey;
+
 	@ViewById(android.R.id.list)
 	ListView commentList;
+	
+	@Inject
+	Dao<Comment,Integer> commentDao;
 
 	@Inject
 	Dao<UserIcon, Integer> userIconDao;
@@ -51,8 +63,8 @@ public class CommentActivity extends ListActivity {
 	@Inject
 	CommentAdapter commentAdapter;
 
-	ProgressDialog dialog;
-
+	ProgressDialog progressDialog;
+	
 	ListMultimap<Integer, Comment> userIconQueue = ArrayListMultimap.create();
 	
 	@AfterViews
@@ -61,12 +73,12 @@ public class CommentActivity extends ListActivity {
 		setVisible(false);
 		Ln.d("issueId %d", issueId);
 		setListAdapter(commentAdapter);
+		
+		progressDialog = new ProgressDialog(this);
 
-		dialog = new ProgressDialog(this);
+		progressDialog.setMessage("コメントを取得中");
 
-		dialog.setMessage("コメントを取得中");
-
-		dialog.show();
+		progressDialog.show();
 		
 		loadComment();
 	}
@@ -74,29 +86,40 @@ public class CommentActivity extends ListActivity {
 	@Background
 	protected void loadComment() {
 		try {
-			List<Comment> comments = backlogService.getComments(issueId);
 			
-			if(comments == null || comments.size() == 0) {
+			List<Comment> comments = commentDao.queryBuilder().where().eq("issueKey", issueKey).query();
+			
+			if(comments != null && !comments.isEmpty()) {
+				reloadCommentList(comments);
+			}
+			
+			comments = backlogService.getComments(issueId);
+			
+			if(comments == null || comments.isEmpty()) {
 				failFinish("コメントが存在しませんでした。");
-				delayFinish();
+				
+				return;
 			}
 			
 			for (Comment comment : comments) {
 				UserIcon icon = userIconDao.queryForId(comment.createdUser.id);
 				
-				if(icon == null || icon.data == null || icon.data.length <= 0) {
-					userIconQueue.put(comment.createdUser.id, comment);
-				} else {
+				if(icon != null && icon.data != null && icon.data.length > 0) {
 					comment.icon = BitmapFactory.decodeByteArray(icon.data, 0, icon.data.length);
+					continue;
 				}
+				
+				userIconQueue.put(comment.createdUser.id, comment);
 			}
 			
 			reloadCommentList(comments);
-			
 			for (final Integer id : userIconQueue.keySet()) {
 				loadUserIcon(id);
 			}
 
+			for (Comment comment : comments) {
+				commentDao.createOrUpdate(comment);
+			}
 		} catch (XMLRPCException e) {
 			Ln.e(e, "コメントの取得に失敗");
 			failFinish("コメントの取得に失敗しました。 (ネットワークエラー)");
@@ -149,8 +172,9 @@ public class CommentActivity extends ListActivity {
 		
 		commentList.setVisibility(View.VISIBLE);
 		
-		if(dialog != null) {
-			dialog.dismiss();
+		if(progressDialog != null) {
+			progressDialog.dismiss();
+			
 		}
 		
 		setVisible(true);
@@ -159,29 +183,46 @@ public class CommentActivity extends ListActivity {
 	@UiThread
 	public void failFinish(String message) {
 		
-		if (dialog != null) {
-			dialog.dismiss();
+		if (progressDialog != null) {
+			progressDialog.dismiss();
 		}
 
 		Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+		setVisible(true);
 	}
 
 	@UiThreadDelayed(1000)
 	public void delayFinish() {
 
-		if (dialog != null) {
-			dialog.dismiss();
+		if (progressDialog != null) {
+			progressDialog.dismiss();
 		}
 
+		setVisible(true);
 		finish();
 	}
 	private void back() {
 		finish();
+		setVisible(true);
 	}
 	
 	@Click(R.id.backHomeImage)
 	public void onBackHomeIconClick(View icon){
 		back();
 	}
-
+	
+	@OptionsItem(R.id.addComment)
+	public void addComment() {
+		CommentDialog.createDialog(issueKey, this).show();
+	}
+	
+	public void onAddedCommentSuccess(@Observes OnAddCommentSuccessEvent e) {
+		commentAdapter.add(e.comment);
+		commentAdapter.notifyDataSetChanged();
+		
+		try {
+			commentDao.createOrUpdate(e.comment);
+		} catch (SQLException e1) {
+		}
+	}
 }

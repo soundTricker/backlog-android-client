@@ -70,12 +70,15 @@ public class TimelineAdapter extends IterableAdapter<Timeline> {
 				break;
 		}
 
-		final ImageView userIcon = (ImageView)convertView.findViewById(R.id.userIcon);
 		if(item.icon != null) {
+			ImageView userIcon = (ImageView)convertView.findViewById(R.id.userIcon);
 			userIcon.setImageBitmap(item.icon);
-		} else {
-
+			View progressBar = convertView.findViewById(R.id.progressBar1);
+			progressBar.setVisibility(View.INVISIBLE);
+			progressBar.setLayoutParams(new LinearLayout.LayoutParams(0,0));
+			userIcon.setVisibility(View.VISIBLE);
 		}
+		
 		return convertView;
 
 	}

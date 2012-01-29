@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.googlecode.stk.android.backlog.Const;
@@ -232,6 +233,24 @@ public class BacklogServiceImpl implements BacklogService {
 		List<Comment> list = Util.convertList(comments, Comment.class);
 		
 		return list;
+	}
+
+	@Override
+	public Comment addComment(String issueKey, String comment) throws XMLRPCException {
+
+		Map<String,Object> map = Maps.newHashMap();
+		
+		map.put("key", issueKey);
+		map.put("content", comment);
+		
+		Map<String,Object> result = call("backlog.addComment" , map);
+		
+		if(result == null) {
+			return null;
+		}
+		Comment ret = Comment.create(result);
+		ret.issueKey = issueKey;
+		return ret;
 	}
 
 //	public static class XmlRpcAsyncTask<T, M> extends RoboAsyncTask<T> {

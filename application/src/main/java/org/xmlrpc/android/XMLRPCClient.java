@@ -30,8 +30,6 @@ import org.apache.http.params.HttpProtocolParams;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import roboguice.util.Ln;
-
 /**
  * XMLRPCClient allows to call remote XMLRPC method.
  * 
@@ -155,7 +153,6 @@ public class XMLRPCClient extends XMLRPCCommon {
 
 			registry.register(new Scheme("https", socketFactory, 443));
 		} catch (Exception e) {
-			Ln.e(e);
 		}
 
 		postMethod = new HttpPost(uri);
