@@ -11,6 +11,7 @@ import com.googlecode.stk.android.backlog.db.entity.Issue;
 import com.googlecode.stk.android.backlog.db.entity.IssueType;
 import com.googlecode.stk.android.backlog.db.entity.Priority;
 import com.googlecode.stk.android.backlog.db.entity.Project;
+import com.googlecode.stk.android.backlog.db.entity.ProjectUserRelation;
 import com.googlecode.stk.android.backlog.db.entity.Resolution;
 import com.googlecode.stk.android.backlog.db.entity.Status;
 import com.googlecode.stk.android.backlog.db.entity.Timeline;
@@ -55,4 +56,6 @@ public interface BacklogService {
 	List<Comment> getComments(Integer issueId) throws XMLRPCException;
 	
 	Comment addComment(String issueKey, String comment) throws XMLRPCException;
+
+	Issue switchStatus(String key, Status selectedStatus, Resolution selectedResolution, ProjectUserRelation selectedAssigner, String commentText) throws XMLRPCException;
 }

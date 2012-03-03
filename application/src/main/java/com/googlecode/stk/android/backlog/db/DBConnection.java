@@ -14,6 +14,7 @@ import com.googlecode.stk.android.backlog.db.entity.Issue;
 import com.googlecode.stk.android.backlog.db.entity.IssueType;
 import com.googlecode.stk.android.backlog.db.entity.Priority;
 import com.googlecode.stk.android.backlog.db.entity.Project;
+import com.googlecode.stk.android.backlog.db.entity.ProjectUserRelation;
 import com.googlecode.stk.android.backlog.db.entity.Resolution;
 import com.googlecode.stk.android.backlog.db.entity.Status;
 import com.googlecode.stk.android.backlog.db.entity.User;
@@ -27,7 +28,7 @@ public class DBConnection extends OrmLiteSqliteOpenHelper {
 
 	@Inject
 	public DBConnection(Context context) {
-		super(context, "backlog2.sqlite", null, 7);
+		super(context, "backlog2.sqlite", null, 8);
 	}
 	
 	protected List<Class<?>> getDatabaseTableList() {
@@ -43,7 +44,8 @@ public class DBConnection extends OrmLiteSqliteOpenHelper {
 											Version.class,
 											Resolution.class,
 											Status.class,
-											Comment.class
+											Comment.class,
+											ProjectUserRelation.class
 											);
 		return databaseTableList;
 	}

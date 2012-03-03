@@ -10,7 +10,7 @@ public class User extends BaseEntity implements Convertable{
 
 	@DatabaseField
 	public String name;
-
+	
 	public static User create(Map<String, Object> map) {
 
 		User user = new User();

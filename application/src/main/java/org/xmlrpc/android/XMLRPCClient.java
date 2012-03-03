@@ -1,6 +1,7 @@
 package org.xmlrpc.android;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -29,6 +30,8 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
+
+import roboguice.util.Ln;
 
 /**
  * XMLRPCClient allows to call remote XMLRPC method.
@@ -454,6 +457,13 @@ public class XMLRPCClient extends XMLRPCCommon {
 			XmlPullParser pullParser = XmlPullParserFactory.newInstance().newPullParser();
 			entity = response.getEntity();
 			Reader reader = new InputStreamReader(new BufferedInputStream(entity.getContent()));
+			
+			BufferedReader bufferedReader = new BufferedReader(reader);
+			String line = null;
+			while((line = bufferedReader.readLine()) != null) {
+				Ln.d(line);
+			}
+			
 			// for testing purposes only
 			// reader = new
 			// StringReader("<?xml version='1.0'?><methodResponse><params><param><value>\n\n\n</value></param></params></methodResponse>");

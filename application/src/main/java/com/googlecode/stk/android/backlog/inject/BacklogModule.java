@@ -21,6 +21,7 @@ import com.googlecode.stk.android.backlog.db.entity.Issue;
 import com.googlecode.stk.android.backlog.db.entity.IssueType;
 import com.googlecode.stk.android.backlog.db.entity.Priority;
 import com.googlecode.stk.android.backlog.db.entity.Project;
+import com.googlecode.stk.android.backlog.db.entity.ProjectUserRelation;
 import com.googlecode.stk.android.backlog.db.entity.Resolution;
 import com.googlecode.stk.android.backlog.db.entity.Status;
 import com.googlecode.stk.android.backlog.db.entity.User;
@@ -71,6 +72,9 @@ public class BacklogModule extends AbstractAndroidModule {
 		.in(Singleton.class);
 		bind(new TypeLiteral<Dao<Comment, Integer>>() {})
 		.toProvider(new DaoProvider<Comment>(helper.getConnectionSource(), Comment.class))
+		.in(Singleton.class);
+		bind(new TypeLiteral<Dao<ProjectUserRelation, Integer>>() {})
+		.toProvider(new DaoProvider<ProjectUserRelation>(helper.getConnectionSource(), ProjectUserRelation.class))
 		.in(Singleton.class);
 		
 		bindConstant().annotatedWith(SharedPreferencesName.class).to("default");

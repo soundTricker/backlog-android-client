@@ -12,5 +12,6 @@
         android:id="@+id/search"
         android:title="@string/search" android:numericShortcut="2" android:alphabeticShortcut="b" android:icon="@android:drawable/ic_menu_search">
     </item>
+    <item android:id="@+id/changeStatus" android:title="@string/changeStatus"></item>
 
 </menu>

@@ -47,6 +47,7 @@ public class TopActivity extends Activity {
 	private void gotoTimeline() {
 		Intent intent = new Intent(this, TimelineActivity_.class);
 
+
 		startActivityForResult(intent, 0);
 	}
 

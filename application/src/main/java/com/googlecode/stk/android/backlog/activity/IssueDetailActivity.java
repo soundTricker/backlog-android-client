@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 
 import org.xmlrpc.android.XMLRPCException;
 
+import roboguice.event.Observes;
 import roboguice.util.Ln;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -24,6 +25,7 @@ import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.Extra;
+import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.RoboGuice;
 import com.googlecode.androidannotations.annotations.UiThread;
@@ -32,6 +34,7 @@ import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.stk.android.backlog.R;
 import com.googlecode.stk.android.backlog.db.entity.Issue;
 import com.googlecode.stk.android.backlog.db.entity.UserIcon;
+import com.googlecode.stk.android.backlog.dialog.SwitchStatusDialog;
 import com.googlecode.stk.android.backlog.service.BacklogService;
 import com.j256.ormlite.dao.Dao;
 
@@ -106,18 +109,18 @@ public class IssueDetailActivity extends Activity {
 	public void loadIssue() {
 
 		try {
-			issue = issueDao.queryForId(issueId);
-			if (issue != null) {
-				setIssue(issue);
+			Issue dbIssue = issueDao.queryForId(issueId);
+			if (dbIssue != null) {
+				setIssue(dbIssue);
 			}
 		} catch (SQLException e) {
 			Ln.e(e);
 		}
 
 		try {
-			issue = backlogService.getIssue(issueId);
-			setIssue(issue);
-			issueDao.createOrUpdate(issue);
+			Issue serverIssue = backlogService.getIssue(issueId);
+			setIssue(serverIssue);
+			issueDao.createOrUpdate(serverIssue);
 		} catch (XMLRPCException e) {
 
 			Ln.e(e);
@@ -135,7 +138,7 @@ public class IssueDetailActivity extends Activity {
 
 	@UiThread
 	public void failFinish(String message) {
-		
+
 		if (dialog != null) {
 			dialog.dismiss();
 		}
@@ -154,6 +157,10 @@ public class IssueDetailActivity extends Activity {
 
 	@UiThread
 	public void setIssue(Issue issue) {
+
+		this.issue = issue;
+
+		this.issueId = issue.id;
 
 		if (issue.issueType != null) {
 
@@ -190,7 +197,7 @@ public class IssueDetailActivity extends Activity {
 			} catch (XMLRPCException e) {
 				Ln.e(e);
 			} finally {
-				progressBar.setLayoutParams(new LinearLayout.LayoutParams(0,0));
+				progressBar.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
 				progressBar.setVisibility(View.INVISIBLE);
 			}
 			userName.setText(issue.createdUser.name);
@@ -206,21 +213,36 @@ public class IssueDetailActivity extends Activity {
 
 	@Click(R.id.showComment)
 	public void showComment() {
-		Intent intent = new Intent(this , CommentActivity_.class);
-		
+		Intent intent = new Intent(this, CommentActivity_.class);
+
 		intent.putExtra("issueId", issueId);
 		intent.putExtra("issueKey", issue.key);
-		
+
 		startActivity(intent);
 	}
-	
+
 	private void back() {
 		finish();
 	}
-	
+
 	@Click(R.id.backHomeImage)
-	public void onBackHomeIconClick(View icon){
+	public void onBackHomeIconClick(View icon) {
 		back();
 	}
-	
+
+	@OptionsItem(R.id.changeStatus)
+	public void onSelectChangeStatus() {
+		SwitchStatusDialog.createDialog(this, issue).show();
+	}
+
+	public void onSuccessSwitchStatus(@Observes SwitchStatusDialog.OnSwitchStatusSuccessEvent e) {
+		setIssue(issue);
+
+		try {
+			issueDao.update(issue);
+		} catch (SQLException e1) {
+			Ln.e(e1, "issueの更新に失敗しました");
+		}
+	}
+
 }

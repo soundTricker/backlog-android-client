@@ -18,4 +18,9 @@
     <string name="showComment">コメントを表示</string>
     <string name="search">検索</string>
     <string name="add_comment">コメントを追加する</string>
+    <string name="changeStatus">ステータスを変更</string>
+    <string name="status">ステータス</string>
+    <string name="resolution">完了理由</string>
+    <string name="updateComponent">項目を更新</string>
+    <string name="comment">コメント</string>
 </resources>
