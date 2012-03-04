@@ -1,11 +1,12 @@
 application/.apt_generated
-application/target/*
+application/target
 application/.classpath
 application/.project
 application/.factorypath
 application/bin/*
 application/.setting/
-application-it/target/**/*
+application/tmp
+application-it/target
 application-it/.classpath
 application-it/.project
 application-it/bin/**/*
