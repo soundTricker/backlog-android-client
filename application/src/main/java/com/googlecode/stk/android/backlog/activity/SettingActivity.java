@@ -38,7 +38,7 @@ import com.j256.ormlite.dao.Dao;
 @EActivity
 @RoboGuice
 public class SettingActivity extends PreferenceActivity {
-
+//TODO セキュリティ的に問題あるので後で直す いまは仮実装
 	@InjectPreference("spaceId")
 	protected EditTextPreference spaceIdEditText;
 
