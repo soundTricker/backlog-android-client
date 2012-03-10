@@ -6,7 +6,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable
-public class Resolution extends BaseEntity implements Convertable {
+public class Resolution extends BaseEntity implements Convertable,HasName {
 
 	@DatabaseField
 	public String name;
@@ -28,4 +28,8 @@ public class Resolution extends BaseEntity implements Convertable {
 		this.name = (String)map.get("name");
 	}
 
+	@Override
+	public String getName() {
+		return name;
+	}
 }

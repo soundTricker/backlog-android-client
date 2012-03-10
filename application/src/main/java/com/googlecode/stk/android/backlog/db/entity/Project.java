@@ -7,7 +7,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable
-public class Project extends BaseEntity implements Convertable {
+public class Project extends BaseEntity implements Convertable ,HasName{
 
 	@DatabaseField
 	public String name;
@@ -42,4 +42,8 @@ public class Project extends BaseEntity implements Convertable {
 		this.archived = (Boolean)map.get("archived");
 	}
 
+	@Override
+	public String getName() {
+		return name;
+	}
 }

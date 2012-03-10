@@ -6,7 +6,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable
-public class IssueType extends BaseEntity implements Convertable {
+public class IssueType extends BaseEntity implements Convertable, HasName {
 
 	@DatabaseField
 	public String name;
@@ -33,4 +33,8 @@ public class IssueType extends BaseEntity implements Convertable {
 		this.color = (String)map.get("color");
 	}
 
+	@Override
+	public String getName() {
+		return name;
+	}
 }

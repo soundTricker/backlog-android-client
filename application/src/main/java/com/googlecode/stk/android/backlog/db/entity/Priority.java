@@ -6,7 +6,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable
-public class Priority extends BaseEntity implements Convertable{
+public class Priority extends BaseEntity implements Convertable, HasName {
 
 	@DatabaseField
 	public String name;
@@ -24,5 +24,10 @@ public class Priority extends BaseEntity implements Convertable{
 	public void set(Map<String, Object> map) {
 		this.id = (Integer)map.get("id");
 		this.name = (String)map.get("name");
+	}
+
+	@Override
+	public String getName() {
+		return name;
 	}
 }

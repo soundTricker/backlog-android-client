@@ -6,7 +6,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable
-public class Status extends BaseEntity implements Convertable {
+public class Status extends BaseEntity implements Convertable, HasName {
 
 	public static final int FINISH_ID = 4;
 
@@ -27,4 +27,8 @@ public class Status extends BaseEntity implements Convertable {
 		this.name = (String) map.get("name");
 	}
 
+	@Override
+	public String getName() {
+		return name;
+	}
 }

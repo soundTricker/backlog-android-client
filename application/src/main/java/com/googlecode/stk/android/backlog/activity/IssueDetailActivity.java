@@ -1,42 +1,26 @@
 package com.googlecode.stk.android.backlog.activity;
 
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-
-import org.xmlrpc.android.XMLRPCException;
-
-import roboguice.event.Observes;
-import roboguice.util.Ln;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
 import com.google.inject.Inject;
-import com.googlecode.androidannotations.annotations.AfterViews;
-import com.googlecode.androidannotations.annotations.Background;
-import com.googlecode.androidannotations.annotations.Click;
-import com.googlecode.androidannotations.annotations.EActivity;
-import com.googlecode.androidannotations.annotations.Extra;
-import com.googlecode.androidannotations.annotations.OptionsItem;
-import com.googlecode.androidannotations.annotations.OptionsMenu;
-import com.googlecode.androidannotations.annotations.RoboGuice;
-import com.googlecode.androidannotations.annotations.UiThread;
-import com.googlecode.androidannotations.annotations.UiThreadDelayed;
-import com.googlecode.androidannotations.annotations.ViewById;
+import com.googlecode.androidannotations.annotations.*;
 import com.googlecode.stk.android.backlog.R;
 import com.googlecode.stk.android.backlog.db.entity.Issue;
 import com.googlecode.stk.android.backlog.db.entity.UserIcon;
 import com.googlecode.stk.android.backlog.dialog.SwitchStatusDialog;
 import com.googlecode.stk.android.backlog.service.BacklogService;
 import com.j256.ormlite.dao.Dao;
+import org.xmlrpc.android.XMLRPCException;
+import roboguice.event.Observes;
+import roboguice.util.Ln;
+
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 
 @EActivity(R.layout.issue_detail)
 @OptionsMenu(R.menu.issue_detail)
@@ -236,12 +220,12 @@ public class IssueDetailActivity extends Activity {
 	}
 
 	public void onSuccessSwitchStatus(@Observes SwitchStatusDialog.OnSwitchStatusSuccessEvent e) {
-		setIssue(issue);
+		setIssue(e.updatedIssue);
 
 		try {
-			issueDao.update(issue);
+			issueDao.update(e.updatedIssue);
 		} catch (SQLException e1) {
-			Ln.e(e1, "issueの更新に失敗しました");
+			Ln.e(e1);
 		}
 	}
 

@@ -4,11 +4,16 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable
-public class ProjectUserRelation extends BaseEntity {
+public class ProjectUserRelation extends BaseEntity implements HasName {
 	
 	@DatabaseField(foreign=true,foreignAutoRefresh=true,columnName="project_id")
 	public Project project;
 	
 	@DatabaseField(foreign=true,foreignAutoRefresh=true,columnName="user_id")
 	public User user;
+
+	@Override
+	public String getName() {
+		return user.name;
+	}
 }

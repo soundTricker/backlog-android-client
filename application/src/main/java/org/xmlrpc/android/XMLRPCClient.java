@@ -458,12 +458,6 @@ public class XMLRPCClient extends XMLRPCCommon {
 			entity = response.getEntity();
 			Reader reader = new InputStreamReader(new BufferedInputStream(entity.getContent()));
 			
-			BufferedReader bufferedReader = new BufferedReader(reader);
-			String line = null;
-			while((line = bufferedReader.readLine()) != null) {
-				Ln.d(line);
-			}
-			
 			// for testing purposes only
 			// reader = new
 			// StringReader("<?xml version='1.0'?><methodResponse><params><param><value>\n\n\n</value></param></params></methodResponse>");

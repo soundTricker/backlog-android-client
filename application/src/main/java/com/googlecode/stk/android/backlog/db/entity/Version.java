@@ -9,7 +9,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable
-public class Version extends BaseEntity implements Convertable{
+public class Version extends BaseEntity implements Convertable,HasName {
 
 	@DatabaseField
 	public String name;
@@ -40,4 +40,9 @@ public class Version extends BaseEntity implements Convertable{
 		
 	}
 
+
+	@Override
+	public String getName() {
+		return name;
+	}
 }

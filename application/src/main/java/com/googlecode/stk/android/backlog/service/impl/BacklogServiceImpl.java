@@ -267,7 +267,7 @@ public class BacklogServiceImpl implements BacklogService {
 		}
 		
 		if(selectedResolution != null) {
-			map.put("resolusionId", selectedResolution.id);
+			map.put("resolutionId", selectedResolution.id);
 		}
 		
 		if(Strings.isNullOrEmpty(commentText)) {

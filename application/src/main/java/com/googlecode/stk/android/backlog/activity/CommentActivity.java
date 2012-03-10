@@ -223,6 +223,7 @@ public class CommentActivity extends ListActivity {
 		try {
 			commentDao.createOrUpdate(e.comment);
 		} catch (SQLException e1) {
+			Ln.e(e1);
 		}
 	}
 }

@@ -3,6 +3,7 @@ package com.googlecode.stk.android.backlog.dialog;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.googlecode.stk.android.backlog.adapter.HasNameAdapter;
 import roboguice.adapter.IterableAdapter;
 import roboguice.event.EventManager;
 import roboguice.inject.InjectorProvider;
@@ -124,41 +125,21 @@ public class SwitchStatusDialog implements OnClickListener {
 	private void bindResolution() throws SQLException {
 		List<Resolution> resolutionList = resolutionDao.queryForAll();
 
-		IterableAdapter<Resolution> resolutionAdapter = new IterableAdapter<Resolution>(context, 0, resolutionList) {
-
-			@Override
-			public View getView(int position, View convertView, ViewGroup parent) {
-
-				if (convertView == null) {
-					convertView = new TextView(context);
-				}
-
-				((TextView) convertView).setText(getItem(position).name);
-
-				return convertView;
-			}
-		};
+		IterableAdapter<Resolution> resolutionAdapter = new HasNameAdapter<Resolution>(context, android.R.layout.simple_spinner_item, resolutionList);
 
 		resolution.setAdapter(resolutionAdapter);
 	}
 
 	private void bindStatus() throws SQLException {
-		List<Status> statusList = statusDao.queryBuilder().where().ne("_ID", issue.id).query();
+		List<Status> statusList = null;
+		
+		if(Status.FINISH_ID == issue.status.id.intValue()) {
+			statusList = statusDao.queryBuilder().where().eq("_ID" , 2).query();
+		} else {
+			statusList = statusDao.queryBuilder().where().ne("_ID", issue.status.id).query();
+		}
 
-		final IterableAdapter<Status> statusAdapter = new IterableAdapter<Status>(context, 0, statusList) {
-
-			@Override
-			public View getView(int position, View convertView, ViewGroup parent) {
-
-				if (convertView == null) {
-					convertView = new TextView(context);
-				}
-
-				((TextView) convertView).setText(getItem(position).name);
-
-				return convertView;
-			}
-		};
+		final IterableAdapter<Status> statusAdapter = new HasNameAdapter<Status>(context, android.R.layout.simple_spinner_item, statusList);
 
 		status.setAdapter(statusAdapter);
 		
@@ -203,19 +184,7 @@ public class SwitchStatusDialog implements OnClickListener {
 
 		List<ProjectUserRelation> projectUserRelList = userRelDao.queryBuilder().where().eq("project_id", list.get(0).id).query();
 
-		final IterableAdapter<ProjectUserRelation> assignerAdapter = new IterableAdapter<ProjectUserRelation>(context, 0, projectUserRelList) {
-
-			@Override
-			public View getView(int position, View convertView, ViewGroup parent) {
-				if (convertView == null) {
-					convertView = new TextView(context);
-				}
-
-				((TextView) convertView).setText(getItem(position).user.name);
-
-				return convertView;
-			}
-		};
+		final IterableAdapter<ProjectUserRelation> assignerAdapter = new HasNameAdapter<ProjectUserRelation>(context, android.R.layout.simple_spinner_item, projectUserRelList);
 
 		assigner.setAdapter(assignerAdapter);
 		
@@ -276,9 +245,9 @@ public class SwitchStatusDialog implements OnClickListener {
 			
 			@Override
 			protected void onSuccess(Issue t) throws Exception {
-				progressDialog.dismiss();
-				Toast.makeText(context, "ステータスを変更しました。", Toast.LENGTH_LONG).show();
 				eventManager.fire(context, new OnSwitchStatusSuccessEvent(t));
+				Toast.makeText(context, "ステータスを変更しました。", Toast.LENGTH_LONG).show();
+				progressDialog.dismiss();
 			}
 			
 			@Override
